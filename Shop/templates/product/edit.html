@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+<div class="container">
+    <form action="{% url 'shop_edit' product.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <td>分類</td>
+            <td>
+                <select name="category_id">
+                    {% for category in categorys %}
+                    <option value="{{ category.id }}"{% if product.category.id == category.id %} selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>名稱</td>
+            <td><input type="text" name="name" required maxlength="50" value="{{ product.name }}"/></td>
+        </tr>
+        <tr>
+            <td>內容</td>
+            <td><textarea cols="60" rows="5" name="content" required>{{ product.content }}</textarea></td>
+        </tr>
+        <tr>
+            <td>項目</td>
+            <td>
+                <div id="itemsdiv">
+                    {% for item in product.items.all %}
+                    <div>
+                        名稱︰<input type="text" name="item_name" value="{{ item.name }}" size="10" />
+                        價格︰<input type="text" name="item_price" value="{{ item.price }}" size="5" />
+                        存貨︰<input type="text" name="item_stock" value="{{ item.stock}}" size="5" />
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>檔案</td>
+            <td><input type="file" name="image" /><img src="/{{ product.image}}" width="50" height="50" />{{ product.image }}</td>
+        </tr>
+        <tr>
+            <td>有效</td>
+            <td>
+                <input type="radio" value="0" name="available"{% if product.available == 0 %}checked{% endif %}/>有效
+                <input type="radio" value="1" name="available"{% if product.available == 1 %}checked{% endif %}/>無效
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="send" value="送出"/>
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
+{% endblock %}

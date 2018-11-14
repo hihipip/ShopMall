@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    管理後台
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <form action="{% if category %}{% url 'category_edit' category.id %}{% else %}{% url 'category_add' %}{% endif %}" method="post">
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <td>名稱</td>
+            <td><input type="text" name="name" required maxlength="50" value="{{ category.name }}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="send" value="送出"/>
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
+{% endblock %}

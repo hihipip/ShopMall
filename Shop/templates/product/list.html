@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+    管理後台
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div>{{ user.name }}您好</div>
+    <div>Product</div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">slug</th>
+            <th scope="col">image</th>
+            <th scope="col">create_date</th>
+            <th scope="col">func.</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for obj in products %}
+    <tr>
+        <th scope="row">{{ obj.id }}</th>
+        <td>{{ obj.name }}</td>
+        <td>{{ obj.slug }}</td>
+        <td>{{ obj.image }}</td>
+        <td>{{ obj.create_date }}</td>
+        <td><a href="{% url 'shop_edit' obj.id %}">修改</a>
+            <a href="{% url 'shop_del' obj.id %}">刪除</a>
+        </td>
+    </tr>
+    {% empty %}
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<div class="container">
+    Category
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">slug</th>
+            <th scope="col">func.</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for obj in categorys %}
+    <tr>
+        <th scope="row">{{ obj.id }}</th>
+        <td>{{ obj.name }}</td>
+        <td>{{ obj.slug }}</td>
+        <td><a href="{% url 'category_edit' obj.id %}">修改</a></td>
+    </tr>
+    {% empty %}
+    {% endfor %}
+    </tbody>
+</table>
+<a class="btn btn-primary" href="{% url 'category_add' %}" role="button">新增</a>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}
+    管理後台
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <form action="{% url 'shop_add' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <td>分類</td>
+            <td>
+                <select name="category_id">
+                    {% for category in categorys %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>名稱</td>
+            <td><input type="text" name="name" required maxlength="50" value="AA"/></td>
+        </tr>
+        <tr>
+            <td>內容</td>
+            <td><textarea cols="60" rows="5" name="content" required>textarea</textarea></td>
+        </tr>
+        <tr>
+            <td>項目</td>
+            <td>
+                <div id="itemsdiv">
+                    <div>
+                        名稱︰<input type="text" name="item_name" value="A1" size="10" />
+                        價格︰<input type="text" name="item_price" value="100" size="5" />
+                        存貨︰<input type="text" name="item_stock" value="10" size="5" />
+                    </div>
+                    <div>
+                        名稱︰<input type="text" name="item_name" value="B1" size="10" />
+                        價格︰<input type="text" name="item_price" value="200" size="5" />
+                        存貨︰<input type="text" name="item_stock" value="20" size="5" />
+                    </div>
+                    <div>
+                        名稱︰<input type="text" name="item_name" value="C1" size="10" />
+                        價格︰<input type="text" name="item_price" value="300" size="5" />
+                        存貨︰<input type="text" name="item_stock" value="30" size="5" />
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>檔案</td>
+            <td><input type="file" name="image" /></td>
+        </tr>
+        <tr>
+            <td>有效</td>
+            <td>
+                <input type="radio" value="0" name="available" checked />有效
+                <input type="radio" value="1" name="available"/>無效
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="send" value="送出"/>
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
+{% endblock %}

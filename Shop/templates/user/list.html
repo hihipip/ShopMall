@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<div class="container">
+    Admin Users
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">username</th>
+            <th scope="col">create_date</th>
+            <th scope="col">func.</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for obj in users %}
+    <tr>
+        <th scope="row">{{ obj.id }}</th>
+        <td>{{ obj.name }}</td>
+        <td>{{ obj.username }}</td>
+        <td>{{ obj.create_date }}</td>
+        <td>
+            <a href="{% url 'user_edit' obj.id %}">修改</a>
+            <a href="{% url 'user_del' obj.id %}">刪除</a>
+        </td>
+    </tr>
+    {% empty %}
+    {% endfor %}
+    </tbody>
+</table>
+<a class="btn btn-primary" href="{% url 'user_add' %}" role="button">新增</a>
+</div>
+{% endblock %}
